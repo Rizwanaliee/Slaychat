@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+{% block title %}Manage Companies{% endblock title %}
+{% block content %}
+{% load rizwan_dev_tags %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Manage Companies
+      </h1>
+    </section>
+    {% if messages %}
+      {% for message in messages%}
+        <div class="alert alert-{{message.tags}} text-center" id="hidemessage" role="alert">
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- /.content -->
+    <section class="content" id="dashboard-2">
+      <div class="box">
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+          <table class="table table-condensed">
+            <tr>
+              <th>Id</th>
+              <th>Company Name</th>
+              <th>Address</th>
+              <th>Added By</th>
+              <th style="text-align:center">Actions</th>
+            </tr>
+            {% if companyList%}
+                {% for company in companyList%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{company.companyName}}</td>
+                        <td>{{company.address}}</td>
+                        <td>{{company.userId.fullName}}</td>
+                        <td class="btn-section" style="margin-right: -137px;">
+                          <a href="{% url 'reject-company' company.id%}" class="btn btn-reject">Reject</a>
+                          <span class="btn-2"><a href="{% url 'apprrove-company' company.id%}" class="btn btn-accept">Approve</a></span>
+                          <span class="btn-2 edit-image"><a href="{% url 'comp-edit-view' company.id%}" ><img src="/static/assets/dist/img/edit.png"></span>
+                          <span class="btn-3"><a href = "#" class="btn btn-view">View Details</a></span>
+                        </td>
+                    </tr>
+                {% endfor%}
+            {% else%}
+                <td><span>Company Data Not Available</span></td>
+            {% endif%}
+          </table>
+        </div>
+     
+        <!-- /.box-body -->
+      </div>
+      <div class="box-footer">
+        <div class="box-tools" style="margin-left: 45%;">
+          <ul class="pagination pagination-sm inline">
+            {% if page_obj.has_previous %}
+              <li><a href="?page=1" >&laquo; First</a></li>
+              <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}&nbsp
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            {% if page_obj.has_next %}
+              <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+              <li><a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <!-- /.box -->
+    </section>
+    
+
+  </div>
+
+{% endblock content%}
+{% block script%}
+  <script>
+    setTimeout(function(){
+      $('#hidemessage').hide()
+    }, 3000);
+
+  </script>
+{% endblock script%}

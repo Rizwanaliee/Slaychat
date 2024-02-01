@@ -1,0 +1,109 @@
+{% extends 'base/base.html' %}
+{% block title %}Edit Category{% endblock title %}
+{% block content %}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+          Edit Category
+        </h1>
+      </section>
+    {% if messages %}
+      {% for message in messages%}
+        <div class="alert alert-{{message.tags}} text-center" id='hidemessage' role="alert">
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- /.content -->
+    <section class="content" id="dashboard-2">
+      <div class="box">
+        <!-- /.box-header -->
+          <form id="edit-category-add-form" method="POST" style="display: block;" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group " >
+                <label>Category Name</label>
+                <input type="text" class="form-control" name="category" value="{{Category.catName}}" placeholder="Category Name" style="width:50%;">
+            </div>
+         
+         
+            <button type="submit" class="btn btn-1">Update</button>
+          </form>
+          <hr>
+          <a href="{% url 'add-sub-cat' Category.id%}" class="btn btn-1" type="button"><span
+            class="glyphicon glyphicon-plus"></span> Add Sub Category</a>
+          <h3>Sub Categories</h3>
+          
+          <div class="box-body no-padding">
+            <table class="table table-condensed">
+              <tr>
+                <th>Id</th>
+                <th>Sub Category Name</th>
+                <th>Actions</th>
+              </tr>
+              {% if SubCategory%}
+                  {% for cat in SubCategory%}
+                      <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cat.subCatName}}</td>
+                        <td class="btn-section">
+                            <span class="btn-2"><a href="{% url 'edit-sub-cat' cat.id%}" class="btn btn-delete">Edit</a></span>
+                        </td>
+                      </tr>
+                  {% endfor%}
+              {% else%}
+                  <td><span>SubCategory Not Available</span></td>
+              {% endif%}
+            </table>
+          </div>
+        </div>
+        
+        
+      </div>
+      
+      <!-- /.box -->
+    </section>
+
+  </div>
+{% endblock content%}
+{% block script%}
+<script>
+  setTimeout(function () {
+      $('#hidemessage').hide()
+  }, 4000)
+
+  function readURL(input) {
+      if (input.files && input.files[0]) {
+    
+        var reader = new FileReader();
+    
+        reader.onload = function(e) {
+          $('.image-upload-wrap').hide();
+    
+          $('.file-upload-image').attr('src', e.target.result);
+          $('.file-upload-content').show();
+    
+          $('.image-title').html(input.files[0].name);
+        };
+    
+        reader.readAsDataURL(input.files[0]);
+    
+      } else {
+        removeUpload();
+      }
+    }
+    
+    function removeUpload() {
+      $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+      $('.file-upload-content').hide();
+      $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+            $('.image-upload-wrap').addClass('image-dropping');
+        });
+        $('.image-upload-wrap').bind('dragleave', function () {
+            $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
+{% endblock script%}

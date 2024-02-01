@@ -1,0 +1,86 @@
+{% extends 'base/base.html' %}
+{% block title %}Doer Categories Requests{% endblock title %}
+{% block content %}
+{% load rizwan_dev_tags %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Doer Categories Requests
+      </h1>
+    </section>
+    {% if messages %}
+      {% for message in messages%}
+        <div class="alert alert-{{message.tags}} text-center" id='hidemessage' role="alert">
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- /.content -->
+    <section class="content" id="dashboard-2">
+      <div class="box">
+        <div class="box-header">
+            {% comment %} <span class="refresh"><button class="btn" onclick="location.href='#'"><img src="/static/assets/dist/img/refresh.png"></button></span> {% endcomment %}
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+          <table class="table table-condensed">
+            <tr>
+              <th>Id</th>
+              <th>Category Name</th>
+              <th>Doer Name</th>
+              <th>Doer Mobile Number</th>
+              <th>Status</th>
+              <th style="text-align:center">Actions</th>
+            </tr>
+            {% if doerCatList%}
+                {% for cat in doerCatList%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cat.catName}}</td>
+                        <td>{{cat.userId.fullName}}</td>
+                        <td>{{cat.userId.mobileNo}}</td>
+                        <td class="status-pending">Pending</td>
+                        <td class="btn-section">
+                            <a href="{% url 'reject-doer-category' cat.id%}" class="btn btn-reject">Reject</a>
+                            <span class="btn-2"><a href="{% url 'approved-cat-request' cat.id%}" class="btn btn-accept">Approve</a></span>
+                            <span class="btn-2 edit-image"><a href="{% url 'edit-category' cat.id%}"><img src="/static/assets/dist/img/edit.png"></span>
+                            <span class="btn-3"><a href = "{% url 'view-admin-details' cat.id %}" class="btn btn-view">View Details</a></span>
+                        </td>
+                    </tr>
+                {% endfor%}
+            {% else%}
+                <td><span>Categories Not Available</span></td>
+            {% endif%}
+          </table>
+        </div>
+     
+        <!-- /.box-body -->
+      </div>
+      <div class="box-footer">
+        <div class="box-tools" style="margin-left: 45%;">
+          <ul class="pagination pagination-sm inline">
+            {% if page_obj.has_previous %}
+              <li><a href="?page=1" >&laquo; First</a></li>
+              <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}&nbsp
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            {% if page_obj.has_next %}
+              <li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+              <li><a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      <!-- /.box -->
+    </section>
+  </div>
+
+{% endblock content%}
+{% block script%}
+  <script>
+    setTimeout(function(){
+      $('#hidemessage').hide()
+    }, 3000);
+    </script>
+{% endblock script%}

@@ -1,0 +1,87 @@
+{% extends 'base/base.html' %}
+{% block title %}View Details{% endblock title %}
+{% block content %}
+{% load rizwan_dev_tags %}
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        View Details
+      </h1>
+    </section>
+    {% if messages %}
+      {% for message in messages%}
+        <div class="alert alert-{{message.tags}} text-center" id='hidemessage' role="alert">
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <!-- /.content -->
+    <section class="content" id="dashboard-2">
+      <div class="box">
+        <div class="box-header">
+            <h3>Category Details</h3><br>
+            <label>Category Name-</label>
+            <span>{{Category.catName}}</span><br>
+            <label>Category Added By-</label>
+            <span>{% if Category.catAddedBy == 1%} Admin {% else%} Doer{% endif%}</span>
+            <hr>
+          </div>
+        <!-- /.box-header -->
+        <div class="box-body no-padding">
+          <table class="table table-condensed">
+            <tr>
+              <th>Id</th>
+              <th>Sub Category Name</th>
+            </tr>
+            {% if SubCategory%}
+                {% for cat in SubCategory%}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{cat.subCatName}}</td>
+                    </tr>
+                {% endfor%}
+            {% else%}
+                <td><span>SubCategory Not Available</span></td>
+            {% endif%}
+          </table>
+        </div>
+     
+        <!-- /.box-body -->
+      </div>
+
+      <!-- /.box -->
+    </section>
+    
+
+  </div>
+
+{% comment %} <form name="filter-form" id="type_id_form" method="POST" action="{% url 'filter-by-status'%}">
+  {% csrf_token%}
+  <input type="hidden" name="filter_status_id" id="filter_val_status">
+</form>
+<form method="post" action="{% url 'delete-user' %}" id="delete-user-form">
+  {% csrf_token %}
+  <input type="hidden" name="user_id" id="User_id">
+</form>  {% endcomment %}
+{% endblock content%}
+{% block script%}
+  <script>
+    setTimeout(function(){
+      $('#hidemessage').hide()
+    }, 3000);
+    $('#type_id').on('change',function(){  
+      var val = $('#type_id').val();
+      $('#filter_val_status').attr('value',val);
+      $('#type_id_form').submit();
+    });
+    $(document).on('click','#delete_user', function(e){ 
+      var user_id = $(this).data('id');
+      $('#User_id').val(user_id);
+    }); 
+    $(document).on('click','#delete_link_modal', function(e){ 
+      $('#delete-user-form').submit(); 
+    });
+  </script>
+{% endblock script%}

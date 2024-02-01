@@ -1,0 +1,45 @@
+{% extends 'base/base.html' %}
+{% block title %}View Details{% endblock title %}
+{% block content %}
+
+<div class="content-wrapper">
+  <section class="content" id="view-deatil-page">
+    <div class="box">
+      <div class="box-header"> <h3 class="box-title"> <a href="#"></a> View Details </h3> </div>
+      <!-- /.box-header -->
+      <div class="box-body no-padding">
+          <div class="row">
+              <div class="col-12 col-md-12" id="grey-section">
+                      <div class="row">
+                          <div class="col-md-4">
+                            {% if User.profileImage%}
+                              <img src="{{User.profileImage}}" class="img-user-1">
+                            {% else%}
+                              <img src="/static/assets/dist/img/no_user.png" class="img-user-1">
+                            {% endif%}
+                          </div>
+                          <div class="col-md-8">
+                              <h4>{{User.fullName}}</h4>
+                              <div class="row">
+                                <div class="col-md-3">Email:</div>
+                                <div mailto:class="col-md-9"><strong>{{User.email}}</strong></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-3">Mobile Number:</div>
+                                <div class="col-md-9"><strong>{{User.mobileNo}}</strong></div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-3">Pronoun:</div>
+                                <div class="col-md-9"><strong>{{User.genderTypeId.name}}</strong></div>
+                              </div>
+                          </div>
+                      </div>
+              </div>
+          </div>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </section>
+</div>
+{% endblock content%}

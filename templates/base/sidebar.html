@@ -1,0 +1,85 @@
+{% load static %}
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li>
+        <a href="{% url 'admin-dashboard'%}" class="{% if request.path == "/admin-dashboard/" %} active-effect {% endif%}">
+          <i class="fa fa-fw fa-dashboard"></i> <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+        <a href="{% url 'customer-users'%}" class="{% if request.path == "/customer-users/" or request.path == "/filter-active-block-customer/" or request.path == "/search-customer-user/" %} active-effect {% endif%}">
+          <i class="far fa-users-medical"></i>&nbsp&nbsp  <span>Customer Users</span>
+        </a>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="far fa-users"></i>&nbsp&nbsp
+          <span>Doer Users</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a href="{% url 'doer-usr-requests'%}" class="{% if request.path == "/doer-user-requests/" or request.path == "/search-doer/" %} active-effect {% endif%}">
+            <i class="fal fa-user-friends"></i>&nbsp&nbsp <span>Doer Users Request</span></a>
+          </li>
+          <li>
+            <a href="{% url 'approved-users-doer'%}"  class="{% if request.path == "/approved-doers/" or request.path == "/filter-by-status/" %} active-effect {% endif%}">
+            <i class="fal fa-user-friends"></i>&nbsp&nbsp <span>Approved Doer Users</span></a>
+          </li>
+        </ul>
+      
+      </li>
+
+      <li class="treeview">
+        <a href="#">
+          <i class="far fa-dot-circle"></i>&nbsp&nbsp
+          <span>Manage Category</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a href="{% url 'doer-cat-request-list'%}"  class="{% if request.path == "/doer-cat-requests/" %} active-effect {% endif%}">
+            <i class="far fa-dot-circle"></i>&nbsp&nbsp <span>Doer Categories Requests</span></a>
+          </li>
+          <li>
+            <a href="{% url 'admin-cat-list'%}" class="{% if request.path == "/admin-cat-list/" %} active-effect {% endif%}">
+            <i class="far fa-dot-circle"></i>&nbsp&nbsp <span>Admin Categories</span></a>
+          </li>
+        </ul>
+      
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fal fa-building"></i>&nbsp&nbsp
+          <span>Manage Company</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li>
+            <a href="{% url 'request-comp-list'%}"  class="{% if request.path == "/request-company-list/" %} active-effect {% endif%}">
+            <i class="fal fa-building"></i>&nbsp&nbsp <span>Doer Company Requests</span></a>
+          </li>
+          <li>
+            <a href="{% url 'company-list'%}" class="{% if request.path == "/company-list/" or request.path == "/add-company/" or "/edit-company/" in request.path  %} active-effect {% endif%}">
+            <i class="fal fa-building"></i>&nbsp&nbsp <span>Admin Companies</span></a>
+          </li>
+        </ul>
+      
+      </li>
+      <li>
+        <a href="{% url 'query-list'%}" class="{% if request.path == "/support/query-list" %} active-effect" {% endif%}">
+          <i class="fas fa-user-headset"></i>&nbsp&nbsp  <span>Support</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+</aside>

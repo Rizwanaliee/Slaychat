@@ -1,0 +1,80 @@
+{% include 'base/script.html' %}
+{% include 'base/css.html' %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<title>Admin Login</title>
+{% block content %}
+
+  <section class="login">
+    <div class="container-fluid m-0">
+  
+      <div class="row">
+    
+        <div class="col-md-9 px-0">
+          <div class="login-section-1">
+            <div class="form-section">
+            
+              <div class="form-inside">
+                {% if messages %}
+                {% for message in messages%}
+                <div class="alert alert-{{message.tags}} text-center" id='hidemessage' role="alert">
+                    {{message}}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <img src="/static/assets/dist/img/logo.png" class="img-fluid">
+                <p class="pt-3">Welcome back !!!</p>
+                <h4 class="pb-3">Login</h4>
+                <form id = "admin-login-page-form" method="POST">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email</label>
+                    <input type="email" name="email" class="form-control" aria-describedby="emailHelp"
+                      placeholder="Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" name="password"  placeholder="Password">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Login</button>
+                  <p class="text-center"><a href="{% url 'admin-forget-password'%}">Forgot Password?</a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 px-0">
+          <div class="login-section-2">
+            <div class="bg-1">
+              <img src="/static/assets/dist/img/bg.png">
+            </div>
+            <div class="bg-2">
+              <img src="/static/assets/dist/img/bg.png">
+            </div>
+            <img src="/static/assets/dist/img/banner.png" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content%}
+{% block script%}
+  <script type="text/javascript" src="/static/assets/dist/js/form_validate.js"></script>
+
+  <script>
+    setTimeout(function () {
+      $('#hidemessage').hide()
+    }, 4000)
+  </script>
+  <script>
+    $(".toggle-password").click(function () {
+      $(this).toggleClass("fa-eye fa-eye-slash");
+      var input = $($(this).attr("toggle"));
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+    });
+  </script>
+{% endblock script%}
